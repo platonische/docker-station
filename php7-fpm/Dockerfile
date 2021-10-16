@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
     openssl \
     git \
     unzip \
-    apt-utils
+    apt-utils \
+    libpng-dev
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -24,6 +25,7 @@ RUN pecl install mcrypt
 #RUN docker-php-ext-configure mcrypt
 RUN docker-php-ext-enable mcrypt
 RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install gd
 
 
 RUN apt-get update && apt-get install -y procps
