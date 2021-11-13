@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y \
     apt-utils \
     libpng-dev
 
+
+
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer --version
@@ -21,11 +23,17 @@ RUN printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/con
 RUN "date"
 
 RUN apt-get update && apt-get install -y libmcrypt-dev mariadb-client
-RUN pecl install mcrypt
+RUN pecl install mcrypt \
+    && docker-php-ext-enable mcrypt
 #RUN docker-php-ext-configure mcrypt
-RUN docker-php-ext-enable mcrypt
+
+# Xdebug
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install gd
+
 
 
 RUN apt-get update && apt-get install -y procps
