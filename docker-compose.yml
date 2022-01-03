@@ -21,8 +21,10 @@ services:
               TIMEZONE: ${TIMEZONE}
       volumes:
           - ${APP_PATH}:/var/www/app
+          - /usr/local/ioncube:/usr/local/ioncube
           - ./docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
           - ./docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+          - ./docker/php/conf.d/ioncube.ini:/usr/local/etc/php/conf.d/ioncube.ini
       environment:
           DB_HOST: db
           DB_PORT: 3306
